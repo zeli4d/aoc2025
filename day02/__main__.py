@@ -1,7 +1,7 @@
 def a():
     result = 0
 
-    with open("input02") as f:
+    with open("input02.txt") as f:
         line = f.readline()
 
         for itm_range in line.split(","):
@@ -21,7 +21,7 @@ def a():
 def b():
     result = 0
 
-    with open("input02") as f:
+    with open("input02.txt") as f:
         line = f.readline()
         # split to ranges
         for itm_range in line.split(","):

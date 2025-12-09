@@ -22,4 +22,21 @@ def a():
     print("\nresult = ", result)
 
 
-a()
+def b():
+    result = 0
+    with (open("input03.txt") as f):
+        for line in f:
+            l1 = -1
+            n = list("0" * 12)
+            for ln in range(0, 12):
+                for pos in range(l1 + 1, len(line.strip()) - 12 + ln + 1):
+                    if line[pos] > n[ln]:
+                        n[ln] = line[pos]
+                        l1 = pos
+
+            result += int(''.join(n))
+
+    print("\nresult = ", result)
+
+
+b()

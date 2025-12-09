@@ -1,4 +1,3 @@
-
 class Dial:
     position = 50
     first_pos = 0
@@ -8,18 +7,16 @@ class Dial:
         self.position = (self.position + ticks) % 100
 
 
-
 def a():
-
     d = Dial()
 
     zero_cnt = 0
 
-    with open('input01.txt') as f:
+    with open("input01.txt") as f:
         for line in f:
-            if line.strip()[0] == 'L':
+            if line.strip()[0] == "L":
                 d.rotate(-1 * int(line.strip()[1::]))
-            elif line.strip()[0] == 'R':
+            elif line.strip()[0] == "R":
                 d.rotate(int(line.strip()[1::]))
             else:
                 print("Wrong direction {line.strip()[0]}")
@@ -28,12 +25,13 @@ def a():
 
     print(zero_cnt)
 
+
 def b():
     dial = 50
     zero_total = 0
     direction = 0
-    # with open('input_test.txt') as f:
-    with open('input01.txt') as f:
+    # with open("input_test.txt") as f:
+    with open("input01.txt") as f:
         for line in f:
             ticks = int(line.strip()[1::])
             if line.strip()[0] == 'L':

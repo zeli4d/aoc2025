@@ -4,8 +4,6 @@ from copy import deepcopy
 
 def a():
     result = 0
-
-    # input = list()
     beams = set()
     with (open("input07.txt") as f):
         for line in f:
@@ -28,15 +26,46 @@ def a():
     print("\nresult = ", result)
 
 
+
+
+def path_rec(pos, map):
+    if pos is None:
+        # beam start
+        return [path_rec(map[0].index("S"), map[1:])]
+    else:
+        if len(map) == 0:
+            return [pos]
+        if map[0][pos] == "^":
+            #beam split
+            return [[pos] + path_rec(pos - 1, map[1:])] + [[pos] + path_rec(pos - 1, map[1:])]
+        else:
+            #beam pass
+            return [pos] + path_rec(pos, map[1:])
+
+#[7,7,6,6,5,5,4,4,3,3,2,2,1,1],[7,7,6,6,5,5,4,4,3,3,2,2,3,3]
+
 def b():
     result = 0
-    with (open("input07.txt") as f):
+    input = list()
+    pathlist = list()
+    with (open("input07.test.txt") as f):
         for line in f:
-            input.append(line.strip().split())
+            if line.strip() == "":
+                break
+            input.append(line.strip())
 
-    # for l in input: print(l)
+    pathlist = path_rec(None, input)
+
+
+
+
+    print("-"*100)
+    for l in input: print(l)
+    for p in pathlist: print(p)
 
     print("\nresult = ", result)
+
+
 
 
 b()

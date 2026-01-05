@@ -10,13 +10,13 @@ def a():
             # input.append(line.strip().split())
             input = list(line.strip())
             if len(beams) == 0:
-                 beams.add(input.index("S"))
+                beams.add(input.index("S"))
             else:
                 new_beams = deepcopy(beams)
                 for b in beams:
                     if input[b] == "^":
-                        new_beams.add(b-1)
-                        new_beams.add(b+1)
+                        new_beams.add(b - 1)
+                        new_beams.add(b + 1)
                         new_beams.remove(b)
                         result += 1
                 beams = new_beams
@@ -26,46 +26,34 @@ def a():
     print("\nresult = ", result)
 
 
-
-
-def path_rec(pos, map):
-    if pos is None:
-        # beam start
-        return [path_rec(map[0].index("S"), map[1:])]
-    else:
-        if len(map) == 0:
-            return [pos]
-        if map[0][pos] == "^":
-            #beam split
-            return [[pos] + path_rec(pos - 1, map[1:])] + [[pos] + path_rec(pos - 1, map[1:])]
-        else:
-            #beam pass
-            return [pos] + path_rec(pos, map[1:])
-
-#[7,7,6,6,5,5,4,4,3,3,2,2,1,1],[7,7,6,6,5,5,4,4,3,3,2,2,3,3]
-
 def b():
-    result = 0
-    input = list()
-    pathlist = list()
-    with (open("input07.test.txt") as f):
+    result = 1
+    beams = list()
+    with (open("input07.txt") as f):
         for line in f:
-            if line.strip() == "":
-                break
-            input.append(line.strip())
-
-    pathlist = path_rec(None, input)
-
-
-
-
-    print("-"*100)
-    for l in input: print(l)
-    for p in pathlist: print(p)
+            # input.append(line.strip().split())
+            input = list(line.strip())
+            if len(beams) == 0:
+                beams = [0] * len(input)
+                beams[input.index("S")] = 1
+            else:
+                new_beams = deepcopy(beams)
+                for i in range(len(beams)):
+                    if beams[i] > 0 and input[i] == "^":
+                        new_beams[i - 1] += new_beams[i]
+                        new_beams[i + 1] += new_beams[i]
+                        new_beams[i] = 0
+                        input[i - 1] = "|"
+                        input[i + 1] = "|"
+                    # else:
+                    #     input[i] = "|"
+                # print("".join(input), beams)
+                beams = new_beams
+            # print(input)
+            # print(beams)
+    result = sum(beams)
 
     print("\nresult = ", result)
-
-
 
 
 b()
